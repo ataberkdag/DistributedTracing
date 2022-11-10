@@ -19,17 +19,7 @@ namespace Core.Infrastructure
 
             if (options.AddMessageBroker)
             {
-                services.AddMassTransit(_ => {
-                    _.UsingRabbitMq((context, cfg) =>
-                    {
-                        cfg.Host(host: options.MessageBrokerSettings?.ConnectionString, h =>
-                        {
-                            h.Username(options.MessageBrokerSettings?.UserName);
-                            h.Password(options.MessageBrokerSettings?.Password);
-                        });
-
-                    });
-                });
+                services.AddMassTransit(options.MessageBrokerConfiguration);
 
                 services.AddSingleton<IMassTransitHandler, MassTransitHandler>();
             }
@@ -42,14 +32,7 @@ namespace Core.Infrastructure
         public bool AddHttpClient { get; set; }
 
         public bool AddMessageBroker { get; set; }
-        public MessageBrokerSettings MessageBrokerSettings { get; set; }
+        public Action<IBusRegistrationConfigurator> MessageBrokerConfiguration { get; set; }
 
-    }
-
-    public class MessageBrokerSettings
-    {
-        public string ConnectionString { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
     }
 }

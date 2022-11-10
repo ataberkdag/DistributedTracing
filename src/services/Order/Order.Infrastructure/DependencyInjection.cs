@@ -1,5 +1,6 @@
 ﻿using Core.Infrastructure;
 using Core.Infrastructure.Services.Interfaces;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,20 +14,9 @@ namespace Order.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration, DependencyOptions dependencyOptions)
         {
             ArgumentNullException.ThrowIfNull(services, nameof(services));
-
-            var dependencyOptions = new DependencyOptions
-            {
-                AddMessageBroker = true,
-                MessageBrokerSettings = new MessageBrokerSettings
-                {
-                    ConnectionString = configuration.GetConnectionString("RabbitMQ"),
-                    UserName = configuration["RabbitMq:UserName"],
-                    Password = configuration["RabbitMq:Password"]
-                }
-            };
 
             services.AddCoreInfrastructure(dependencyOptions);
 

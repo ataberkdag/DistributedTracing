@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Base;
 using Order.Domain.Dtos;
+using Order.Domain.Events;
 
 namespace Order.Domain.Entities
 {
@@ -25,6 +26,8 @@ namespace Order.Domain.Entities
             UserId = userId;
 
             OrderItems = orderItemDtos.Select(dto => OrderItem.CreateOrderItem(dto.ItemId, dto.Quantity)).ToList();
+
+            AddDomainEvent(new OrderCreated(CorrelationId, UserId, orderItemDtos));
         }
 
         public static Order CreateOrder(Guid userId, List<OrderItemDto> orderItemDtos)

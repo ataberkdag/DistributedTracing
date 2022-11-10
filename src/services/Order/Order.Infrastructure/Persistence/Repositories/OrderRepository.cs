@@ -1,12 +1,12 @@
 ﻿using Core.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using Order.Domain.Abstractions;
+using Order.Infrastructure.Persistence.Context;
 
 namespace Order.Infrastructure.Persistence.Repositories
 {
     public class OrderRepository : Repository<Order.Domain.Entities.Order>, IOrderRepository
     {
-        public OrderRepository(DbContext context) : base(context)
+        public OrderRepository(OrderDbContext context) : base(context)
         {
 
         }

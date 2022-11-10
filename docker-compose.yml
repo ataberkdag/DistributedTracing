@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+   postgres:
+    image: postgres:14.2-alpine3.15
+    container_name: 'postgre'
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: orderDb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: sa1234
+    ports:
+      - 5432:5432
+     
+   rabbitmq:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+      - rabbitmq_log:/var/log/rabbitmq
+    healthcheck:
+     test: ["CMD", "curl", "-f", "http://localhost:5004"]
+     interval: 30s
+     timeout: 10s
+     retries: 5
+
+volumes:
+ db_volume: 
+ rabbitmq_data:
+ rabbitmq_log:

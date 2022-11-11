@@ -11,6 +11,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var dependencyOptions = new DependencyOptions
 {
     AddHttpClient = true,
+    AddDistributedTracing = true,
     AddMessageBroker = true,
     MessageBrokerConfiguration = x =>
     {
@@ -18,8 +19,8 @@ var dependencyOptions = new DependencyOptions
         {
             cfg.Host(host: builder.Configuration.GetConnectionString("RabbitMq"), h =>
             {
-                h.Username(builder.Configuration["RabbitMq:UserName"]);
-                h.Password(builder.Configuration["RabbitMq:Password"]);
+                h.Username(builder.Configuration.GetValue<string>("RabbitMq:UserName"));
+                h.Password(builder.Configuration.GetValue<string>("RabbitMq:Password"));
             });
 
         });

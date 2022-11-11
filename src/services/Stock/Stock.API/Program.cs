@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 var dependencyOptions = new DependencyOptions
 {
     AddMessageBroker = true,
+    AddDistributedTracing = true,
     MessageBrokerConfiguration = x =>
     {
         x.AddConsumer<OrderCreatedConsumer>();

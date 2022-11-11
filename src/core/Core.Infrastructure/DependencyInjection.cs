@@ -9,7 +9,7 @@ namespace Core.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static void AddCoreInfrastructure(this IServiceCollection services, DependencyOptions options)
+        public static void AddCoreInfrastructure(this IServiceCollection services, IConfiguration configuration, DependencyOptions options)
         {
             ArgumentNullException.ThrowIfNull(services, nameof(services));
             ArgumentNullException.ThrowIfNull(options, nameof(options));
@@ -24,12 +24,16 @@ namespace Core.Infrastructure
                 services.AddSingleton<IMassTransitHandler, MassTransitHandler>();
             }
 
+            if (options.AddDistributedTracing)
+                services.AddDistributedTracing(configuration);
+
         }
     }
 
     public class DependencyOptions
     {
         public bool AddHttpClient { get; set; }
+        public bool AddDistributedTracing { get; set; }
 
         public bool AddMessageBroker { get; set; }
         public Action<IBusRegistrationConfigurator> MessageBrokerConfiguration { get; set; }

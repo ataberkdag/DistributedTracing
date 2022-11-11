@@ -1,6 +1,5 @@
 ﻿using Core.Infrastructure;
 using Core.Infrastructure.Services.Interfaces;
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +17,7 @@ namespace Order.Infrastructure
         {
             ArgumentNullException.ThrowIfNull(services, nameof(services));
 
-            services.AddCoreInfrastructure(dependencyOptions);
+            services.AddCoreInfrastructure(configuration, dependencyOptions);
 
             services.AddSingleton<IIntegrationEventBuilder, OrderIntegrationEventBuilder>();
             services.AddDbContext<OrderDbContext>(x => x.UseNpgsql(configuration.GetConnectionString("Database")));

@@ -11,6 +11,7 @@ var dependencyOptions = new DependencyOptions
 {
     AddMessageBroker = true,
     AddDistributedTracing = true,
+    AddRedis = true,
     MessageBrokerConfiguration = x =>
     {
         x.AddConsumer<OrderCreatedConsumer>();

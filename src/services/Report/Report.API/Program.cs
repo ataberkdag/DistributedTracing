@@ -3,7 +3,7 @@ using Core.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDistributedTracing(builder.Configuration);
+builder.Services.AddDistributedTracing(builder.Configuration, new DependencyOptions { });
 
 
 builder.Services.AddControllers();

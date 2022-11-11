@@ -14,7 +14,7 @@ namespace Stock.Infrastructure
         {
             ArgumentNullException.ThrowIfNull(services, nameof(services));
 
-            services.AddCoreInfrastructure(dependencyOptions);
+            services.AddCoreInfrastructure(configuration, dependencyOptions);
         }
     }
 }

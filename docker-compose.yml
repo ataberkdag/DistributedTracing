@@ -28,6 +28,14 @@ services:
      timeout: 10s
      retries: 5
 
+   jaeger:
+    image: jaegertracing/opentelemetry-all-in-one
+    container_name: 'jaeger'
+    ports:
+      - 13133:13133
+      - 16686:16686
+      - 4317:4317
+
 volumes:
  db_volume: 
  rabbitmq_data:

@@ -1,5 +1,10 @@
 # DistributedTracing
-.Net 6 Distributed Tracing sample.
+
+.Net 6 Distributed Tracing sample with PostgreSQL, HttpClient, MassTransit and Redis.
+
+![alt text](https://github.com/ataberkdag/DistributedTracing/blob/main/images/Jaeger1.PNG?raw=true)
+
+![alt text](https://github.com/ataberkdag/DistributedTracing/blob/main/images/Jaeger2.PNG?raw=true)
 
 ### Services
 
@@ -19,9 +24,17 @@ Consumes OrderPlaced event. Checks over Redis.
 - Redis
 - RabbitMQ with MassTransit
 
-### Docker Images
+## Run with Docker (Does not include OrderAPI, StockAPI and ReportAPI)
 
-- postgres:14.2-alpine3.15
-- rabbitmq:3-management
-- redis:6.2
-- jaegertracing/opentelemetry-all-in-one
+
+```bash
+docker-compose -f docker-compose.yml up -d
+```
+
+## Migration
+
+To apply migrations follow this command on Package Manager Console for Order Microservice. (Set starting project to API and set default project to Infrastructure on Package Manager Console)
+
+```bash
+update-database
+```
